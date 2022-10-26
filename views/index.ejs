@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>MINI-Mercado Luchito</title>
+    <style>
+        .container{
+            max-width: 960px;
+        }
+    </style>
+
+
+  </head> 
+  <body>
+
+
+
+
+        <div class="container">
+            <div >
+                <h4>PRODUCTOS</h4>  
+                
+                <br><br>
+                <form action="/crear" method="POST">
+                <div class="col-md-6">
+                    <label for="productoname" class="form-label">Nombre del Producto</label>
+                    <input id="productoname" name="productoname" type="text" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="productoprec" class="form-label">Precio $</label>
+                    <input id="productoprec" name="productoprec" type="number" class="form-control" min="0" step="0.001" required >
+                </div>
+                <div class="col-md-6">
+                    <label for="productocant" class="form-label">Cantidad</label>
+                    <input id="productocant" name="productocant" type="number" class="form-control" min="0" required>
+                </div>
+
+               
+                
+            </div>
+            <div><h4 style=></h4></div>
+            <br>
+            <button type="submit" class="w-100 btn btn-guardar btn-lg"> <i class="bi bi-save"></i> Guardar</button>
+            </form>
+
+
+            <br><br><br><br>
+            
+            <input  id="buscar" type="text" placeholder="Buscar producto...">
+            <table id="tablaProductos" class="table mt-4">
+                <thead>
+                    <tr>
+                        <th style="display: none;">ID</th>
+                        <th>Producto</th>
+                        <th style="display: none;">Precio</th>
+                        <th style="display: none;">Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody class="datos">
+                    <% productos.forEach( (producto) => { %>
+                        <tr>
+                            
+                            <td style="display: none;"><%= producto._id %></td>
+                            <td><%= producto.nombre_p %></td>
+                            <td style="display: none;"><%= producto.precio_p %></td>
+                            <td style="display: none;"><%= producto.cantidad_p %></td>
+                            
+                            <td>
+                                <a type="button" class="btnEditar btn btn-outline-primary bi bi-pencil"></a>
+                                <a href="/borrar/<%= producto._id %>" onclick="return confirm('¿Seguro desea remover?')" class="btn btn-outline-danger bi bi-trash" ></a>
+                            </td>
+
+                        </tr>
+                        <% }) %>
+                </tbody>
+
+            </table>
+
+  
+        </div>
+        <div id="modalProducto" class="modal" tabindex="-1" aria-labelledby="modalProducto" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title" id="exampleModalLabel">Editar prodcuto</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="/editar" method="POST">
+                        <input name="id_editar" id="id_editar" type="text"  hidden>
+                        <div class="mb-3">
+                            <label for="producto_editar" class="col-form-label">Prodcuto:</label>
+                            <input type="text" name="producto_editar" id="producto_editar" class="form-control" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="precio_editar" class="col-form-label">Precio:</label>
+                            <input type="number" name="precio_editar" id="precio_editar" class="form-control" class="form-control" min="0" step="0.001" value="">
+                            
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                          </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="js/code.js"></script>
+    </body>
+</html>
